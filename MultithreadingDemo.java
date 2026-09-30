@@ -1,8 +1,8 @@
-class MyThread extends Thread {
+class ReservationThread extends Thread {
 
     public void run() {
         for (int i = 1; i <= 5; i++) {
-            System.out.println("Thread Class: " + i);
+            System.out.println("Reservation Status: Ticket Reserved - " + i);
 
             try {
                 Thread.sleep(500);
@@ -12,12 +12,11 @@ class MyThread extends Thread {
         }
     }
 }
-
-class MyRunnable implements Runnable {
+class StatusThread implements Runnable {
 
     public void run() {
         for (int i = 1; i <= 5; i++) {
-            System.out.println("Runnable Interface: " + i);
+            System.out.println("Ticket Confirmation: Confirmed - " + i);
 
             try {
                 Thread.sleep(500);
@@ -27,15 +26,14 @@ class MyRunnable implements Runnable {
         }
     }
 }
-
 public class MultithreadingDemo {
 
     public static void main(String[] args) {
-        MyThread t1 = new MyThread();
-        MyRunnable r = new MyRunnable();
-        Thread t2 = new Thread(r);
 
-        t1.start();
-        t2.start();
+        ReservationThread reservation = new ReservationThread();
+        StatusThread status = new StatusThread();
+        Thread confirmation = new Thread(status);
+        reservation.start();
+        confirmation.start();
     }
 }
